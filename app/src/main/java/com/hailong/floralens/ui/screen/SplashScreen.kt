@@ -95,7 +95,6 @@ fun SplashScreen(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.offset(y = (-40).dp)
         ) {
             Image(

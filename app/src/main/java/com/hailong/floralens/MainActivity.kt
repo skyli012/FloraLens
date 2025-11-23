@@ -2,6 +2,8 @@ package com.hailong.floralens
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowInsetsController
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.core.Animatable
@@ -20,7 +22,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.luminance
+import androidx.core.view.WindowCompat
 import com.hailong.floralens.ui.MainScreen
 import com.hailong.floralens.ui.screen.SplashScreen
 import kotlinx.coroutines.launch
@@ -35,6 +40,23 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         Log.d(TAG, "Floralens 应用启动")
+
+        // 启用 Edge-to-Edge：让内容延伸到状态栏和导航栏区域
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        // 设置状态栏和导航栏颜色（这里设为白色）
+        val systemBarColor = Color.White // 你可以改成 Color(0xFFE8F5E8) 等
+        window.statusBarColor = systemBarColor.toArgb()
+        window.navigationBarColor = systemBarColor.toArgb()
+
+        // 让状态栏/导航栏图标变为深色（适合浅色背景）
+        if (systemBarColor.luminance() > 0.5f) {
+            // 浅色背景 → 深色图标
+            WindowCompat.getInsetsController(window, window.decorView)?.apply {
+                isAppearanceLightStatusBars = true
+                isAppearanceLightNavigationBars = true
+            }
+        }
 
         setContent {
             MaterialTheme {
@@ -101,7 +123,8 @@ fun AppContent() {
                 .alpha(splashAlpha.value)
         ) {
             if (showSplash) {
-                SplashScreen(onAnimationComplete = { showSplash = false })
+                MainScreen()
+//                SplashScreen(onAnimationComplete = { showSplash = false })
             }
         }
     }

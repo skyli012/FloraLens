@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.sp
 
 // --- 颜色定义 ---
 private val PrimaryGreen = Color(0xFF059669)
-private val LightBackground = Color(0xFFFAFAF8)
+private val LightBackground = Color(0xFAFAF8FF)
 private val DarkGrayText = Color(0xFF333333)
 private val LightGrayBackground = Color(0xFFE0E0E0)
 
